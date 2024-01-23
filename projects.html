@@ -44,6 +44,97 @@
             padding: 1em;
         }
     </style>
+    <script>
+        function findMatchingColors() {
+            const weather = document.getElementById('weather').value;
+            const mood = document.getElementById('mood').value;
+            const event = document.getElementById('event').value;
+
+            // Updated color data
+            const colorData = [
+                'Red, Snowy, Happy, Christmas',
+                'Blue, Rainy, Sad, Music Festival',
+                'Green, Cloudy, Calm, Party',
+                'Yellow, Sunny, Excited, Vacation',
+                'Purple, Rainy, Calm, Formal Dinner',
+                'Orange, Cloudy, Calm, Date Night',
+                'Pink, Sunny, Happy, Vacation',
+                'Brown, Rainy, Sad, Wedding',
+                'Gray, Cloudy, Calm, Formal Dinner',
+                'Teal, Sunny, Energetic, Music Festival',
+                'White, Snowy, Peaceful, Wedding',
+                'Black, Clear, Happy, Concert',
+                'Gold, Sunny, Happy, Wedding',
+                'Silver, Cloudy, Calm, Concert',
+                'Turquoise, Sunny, Adventurous, Vacation',
+                'Magenta, Rainy, Excited, Date Night',
+                'Lime, Cloudy, Energetic, Music Festival',
+                'Cyan, Sunny, Adventurous, Vacation',
+                'Olive, Rainy, Sad, Formal Dinner',
+                'Maroon, Cloudy, Peaceful, Anniversary',
+                'Pastel Blue, Sunny, Calm, Vacation',
+                'Sage Green, Clear, Calm, Christmas',
+                'Lavender, Cloudy, Excited, Party',
+                'Peach, Sunny, Happy, Date Night',
+                'Coral Pink, Rainy, Excited, Shopping Day',
+                'Mint Green, Snowy, Peaceful, Concert',
+                'Ocean Blue, Clear, Peaceful, Vacation',
+                'Champagne, Cloudy, Calm, Formal Dinner',
+                'Lilac, Sunny, Excited, Party',
+                'Rose Gold, Clear, Excited, Date Night',
+                'Sunset Orange, Cloudy, Happy, Birthday',
+                'Sky Blue, Snowy, Calm, Vacation',
+                'Ivory, Sunny, Calm, Wedding',
+                'Emerald Green, Rainy, Energetic, Christmas',
+                'Tiffany Blue, Clear, Calm, Party',
+                'Mustard Yellow, Cloudy, Energetic, Music Festival',
+                'Aqua, Sunny, Happy, Birthday',
+                'Charcoal Gray, Rainy, Sad, Anniversary',
+                'Powder Pink, Snowy, Excited, Birthday'
+            ];
+
+            const matchingColors = colorData
+                .filter(color => {
+                    const [, weatherData, moodData, eventData] = color.split(', ');
+                    return (
+                        weather.toLowerCase() === weatherData.toLowerCase() &&
+                        mood.toLowerCase() === moodData.toLowerCase() &&
+                        (event.toLowerCase() === 'none' || event.toLowerCase() === eventData.toLowerCase())
+                    );
+                })
+                .map(color => color.split(', ')[0]);
+
+            const matchingColorsDiv = document.getElementById('matchingColors');
+            if (matchingColors.length > 0) {
+                matchingColorsDiv.textContent = `You should try: ${matchingColors.join(', ')}`;
+            } else {
+                matchingColorsDiv.textContent = 'Hmm, maybe go with a classic French tip?';
+            }
+        }
+
+        // Function to populate dropdown options
+        function populateDropdown(selectId, options) {
+            const select = document.getElementById(selectId);
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.text = option;
+                select.appendChild(optionElement);
+            });
+        }
+
+        // Populate dropdowns with options on page load
+        window.onload = function () {
+            // Weather options
+            populateDropdown('weather', ['Sunny', 'Rainy', 'Cloudy', 'Snowy', 'Clear']);
+
+            // Mood options
+            populateDropdown('mood', ['Happy', 'Sad', 'Excited', 'Calm', 'Energetic', 'Peaceful', 'Adventurous']);
+
+            // Event options
+            populateDropdown('event', ['None', 'Birthday', 'Wedding', 'Concert', 'Vacation', 'Music Festival', 'Party', 'Christmas', 'Anniversary', 'Shopping Day', 'Formal Dinner', 'Date Night']);
+        };
+    </script>
 </head>
 <body>
     <header>
@@ -76,6 +167,35 @@
             <p>A compelling website with a dual purpose: advocating for cat adoption and showcasing my diverse skill set in image manipulation, video editing, infographic creation, and interactive map design. This visually engaging website not only highlights the joys of cat companionship but also serves as a testament to my proficiency in multimedia and design. Visit the site to witness my creative talents and the promotion of a feline-friendly cause.</p>
             <p>This project is hosted on Weebly. Visit the website by clicking the link below:</p>
             <p><a href="https://bestfurendsforever.weebly.com/" target="_blank">Best Fur-ends Forever</a></p>
+        </article>
+
+        <article>
+            <h3>MoodNail Picker</h3>
+            <p>"MoodNail Picker" designed for those like myself who passionately embrace the world of nail art and self-expression but find the decision-making process challenging. This project utilizes user input and colour data to recommend nail colors, eliminating the hassle of indecision. Users simply provide information about their current mood, the weather at their location, and the upcoming occasion and MoodNail Picker handles the rest to make the nail color selection process simple.</p>
+            <p>Try out the MoodNail Picker below!</p>
+            <form>
+                <label for="weather">Weather:</label>
+                <select id="weather">
+                    <!-- Weather options will be populated dynamically on page load -->
+                </select>
+
+                <label for="mood">Mood:</label>
+                <select id="mood">
+                    <!-- Mood options will be populated dynamically on page load -->
+                </select>
+
+                <label for="event">Event:</label>
+                <select id="event">
+                    <!-- Event options will be populated dynamically on page load -->
+                </select>
+
+                <button type="button" onclick="findMatchingColors()">Find Matching Colors</button>
+            </form>
+
+            <!-- Display matching colors -->
+            <h4>Matching Colors:</h4>
+            <div id="matchingColors"></div>
+            <p>Check out the code on <a href="https://github.com/VictoriaLeliveld/Projects.git" target="_blank">GitHub</a>.</p>
         </article>
     </section>
 
